@@ -1,23 +1,22 @@
 name: Cache Test
-on: push
+
+on: pull_request
+
 jobs:
-  cache:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: npm
+
       - uses: actions/cache@v3
         id: npm-cache
         with:
-          path: |
-            **/node_modules
-            ~/.npm
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-            ${{ runner.os }}
-      - if: ${{ steps.npm-cache.outputs.cache-hit != 'true' }}
-        run: npm install

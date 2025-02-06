@@ -22,7 +22,7 @@ jobs:
             packages/ui/**
       - name: Check changed paths
         id: check-paths
-        if: ${{ steps.changed-ui-files.outputs.all_changed_files != '' }}
+        if: steps.changed-ui-files.outputs.all_changed_files != ''
         run: |
           for file in ${ALL_CHANGED_FILES}; do
             echo $file
@@ -43,7 +43,7 @@ jobs:
           files: |
             packages/docs/**
       - name: Check changed paths
-        if: ${{ steps.changed-docs-files.outputs.all_changed_files != '' }}
+        if: steps.changed-docs-files.outputs.all_changed_files != ''
         run: |
           for file in ${ALL_CHANGED_FILES}; do
             echo $file

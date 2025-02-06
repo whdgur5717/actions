@@ -15,15 +15,14 @@ jobs:
         with:
           fetch-depth: 1
       - name: Get changed files
-        id: changed-files
+        id: changed-ui-files
         uses: tj-actions/changed-files@v44
         with:
           files: |
             packages/ui/**
       - name: Check changed paths
         id: check-paths
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+        if: ${{ steps.changed-ui-files.outputs.all_changed_files != '' }}
         run: |
           for file in ${ALL_CHANGED_FILES}; do
             echo $file

@@ -36,3 +36,24 @@ jobs:
               echo "UI_CHANGED=true" >> $GITHUB_ENV
             fi
           done
+      - name: Get changed files
+        id: changed-docs-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            packages/docs/**
+      - name: Check changed paths
+        if: ${{ steps.changed-docs-files.outputs.all_changed_files != '' }}
+        run: |
+          for file in ${ALL_CHANGED_FILES}; do
+            echo $file
+            if [[ $file =~ .*\.(js$|ts$) ]]; then
+               echo "The extension of '$file' matches .js|.json";
+            fi
+            if [[ $file == app/docs/** ]]; then
+              echo "DOCS_CHANGED=true" >> $GITHUB_ENV
+            fi
+            if [[ $file == packages/ui/** ]]; then
+              echo "UI_CHANGED=true" >> $GITHUB_ENV
+            fi
+          done

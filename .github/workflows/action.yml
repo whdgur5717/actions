@@ -27,10 +27,10 @@ jobs:
             if [[ $file =~ .*\.(js$|ts$) ]]; then
                echo "The extension of '$file' matches .js|.json";
             fi
-            if [[ $file == app/docs/* ]]; then
+            if [[ $file == app/docs/** ]]; then
               echo "DOCS_CHANGED=true" >> $GITHUB_ENV
             fi
-            if [[ $file == packages/ui/* ]]; then
+            if [[ $file == packages/ui/** ]]; then
               echo "UI_CHANGED=true" >> $GITHUB_ENV
             fi
           done

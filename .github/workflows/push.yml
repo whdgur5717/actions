@@ -1,0 +1,13 @@
+name: Print Branch Name
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  print-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print branch name
+        run: echo "Push came from branch ${GITHUB_HEAD_REF}"
